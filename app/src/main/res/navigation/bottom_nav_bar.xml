@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/bottom_nav_bar"
+    app:startDestination="@id/first">
+
+    <fragment
+        android:id="@+id/first"
+        android:name="com.benrostudios.anonymouspace.ui.pages.First"
+        android:label="fragment_first"
+        tools:layout="@layout/fragment_first" />
+    <fragment
+        android:id="@+id/second"
+        android:name="com.benrostudios.anonymouspace.ui.pages.Second"
+        android:label="fragment_second"
+        tools:layout="@layout/fragment_second" />
+    <fragment
+        android:id="@+id/profile"
+        android:name="com.benrostudios.anonymouspace.ui.pages.Profile"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" />
+</navigation>

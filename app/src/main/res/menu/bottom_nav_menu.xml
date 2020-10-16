@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/first"
+        android:icon="@drawable/ic_baseline_brightness_1_24"
+        android:title="FirstPage" />
+    <item
+        android:id="@+id/second"
+        android:icon="@drawable/ic_baseline_brightness_1_24"
+        android:title="SecondPage" />
+    <item
+        android:id="@+id/profile"
+        android:icon="@drawable/ic_baseline_brightness_1_24"
+        android:title="Profile" />
+</menu>
