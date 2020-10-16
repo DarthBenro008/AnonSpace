@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.benrostudios.anonymouspace.R
 import com.benrostudios.anonymouspace.ui.Auth
+import com.benrostudios.anonymouspace.utils.SharedPrefManager
 import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -16,6 +17,8 @@ import kotlinx.android.synthetic.main.fragment_profile.*
 
 
 class Profile : Fragment() {
+
+    private lateinit var sharedPrefManager: SharedPrefManager
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,6 +35,7 @@ class Profile : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        sharedPrefManager = SharedPrefManager(requireActivity())
         buildUi()
     }
 
@@ -52,6 +56,7 @@ class Profile : Fragment() {
         }
 
         profile_logout_button.setOnClickListener {
+            sharedPrefManager.nukeSharedPrefs()
             FirebaseAuth.getInstance().signOut()
             startActivity(Intent(requireActivity(), Auth::class.java))
             requireActivity().finish()
