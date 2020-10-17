@@ -10,7 +10,6 @@ class HomeViewModel(private val networkRepo: NetworkRepo) : ViewModel() {
     val realtimeMessages
         get() = networkRepo.chatroomMessages
 
-
     suspend fun addUser(
         uuid: String,
         firstName: String,

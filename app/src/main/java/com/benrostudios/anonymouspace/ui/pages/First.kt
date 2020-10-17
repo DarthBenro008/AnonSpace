@@ -10,13 +10,22 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import androidx.constraintlayout.motion.widget.MotionLayout
+import androidx.lifecycle.Observer
 import com.benrostudios.anonymouspace.R
 import com.benrostudios.anonymouspace.ui.ChatActivity
+import com.benrostudios.anonymouspace.ui.HomeViewModel
+import com.benrostudios.anonymouspace.ui.base.ScopedFragment
+import com.benrostudios.anonymouspace.utils.SharedPrefManager
 import kotlinx.android.synthetic.main.fragment_first.*
+import kotlinx.coroutines.launch
+import org.koin.android.ext.android.inject
 
 
-class First : Fragment() {
+class First : ScopedFragment() {
 
+
+    private val sharedPrefManager: SharedPrefManager by inject()
+    private val viewModel: HomeViewModel by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,6 +70,26 @@ class First : Fragment() {
 
         })
 
+    }
+
+    private fun createRoom()= launch{
+        viewModel.createRoom("",sharedPrefManager.uuid).observe(viewLifecycleOwner, Observer {
+            if(it != null){
+                sharedPrefManager.currentChatRoomId = it.chatroomid.toString()
+                requireActivity().startActivity(Intent(requireActivity(),ChatActivity::class.java))
+            }
+        })
+    }
+
+    private fun joinRoom(chatRoomId: String) = launch{
+        viewModel.joinRoom(chatRoomId,sharedPrefManager.uuid).observe(viewLifecycleOwner, Observer {
+            if(it != null && it.message){
+                sharedPrefManager.currentChatRoomId = chatRoomId
+                requireActivity().startActivity(Intent(requireActivity(),ChatActivity::class.java))
+            }else{
+                //TOOD: error joining classroom
+            }
+        })
     }
 
 

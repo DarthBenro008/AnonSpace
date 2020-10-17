@@ -5,7 +5,9 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import androidx.lifecycle.lifecycleScope
 import com.benrostudios.anonymouspace.R
+import com.benrostudios.anonymouspace.utils.SharedPrefManager
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -15,16 +17,21 @@ import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.coroutines.launch
+import org.koin.android.ext.android.inject
 
 class Auth : AppCompatActivity() {
     private lateinit var googleSignInClient: GoogleSignInClient
     private lateinit var auth: FirebaseAuth
 
+    private val sharedPrefManager: SharedPrefManager by inject()
+    private val viewModel: HomeViewModel by inject()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         auth = Firebase.auth
-        google_sign_in.setOnClickListener{
+        google_sign_in.setOnClickListener {
             initGoogleSignInClient()
             signIn()
         }
@@ -43,6 +50,7 @@ class Auth : AppCompatActivity() {
 
         startActivityForResult(signInIntent, RC_SIGN_IN)
     }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == RC_SIGN_IN) {
@@ -64,8 +72,7 @@ class Auth : AppCompatActivity() {
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     Log.d(TAG, "signInWithCredential:success")
-                    startActivity(Intent(this, Home::class.java))
-                    finish()
+                    authUser()
                 } else {
                     // If sign in fails, display a message to the user.
                     Log.w(TAG, "signInWithCredential:failure", task.exception)
@@ -74,6 +81,26 @@ class Auth : AppCompatActivity() {
                 }
             }
     }
+
+    private fun authUser() {
+        val uuid = FirebaseAuth.getInstance().uid ?: "101010"
+        val firstName = FirebaseAuth.getInstance().currentUser?.displayName ?: "Anon User"
+        lifecycleScope.launch {
+            viewModel.addUser(uuid, firstName, "").observeForever {
+                if (it != null) {
+                    sharedPrefManager.anonName = it.displayName.toString()
+                    sharedPrefManager.uuid = uuid
+                    finishAuth()
+                }
+            }
+        }
+    }
+
+    private fun finishAuth() {
+        startActivity(Intent(this, Home::class.java))
+        finish()
+    }
+
 
     companion object {
         const val TAG = "welcomeFragment"

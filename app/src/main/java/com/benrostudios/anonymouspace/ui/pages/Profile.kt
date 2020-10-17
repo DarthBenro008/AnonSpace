@@ -14,11 +14,12 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.fragment_profile.*
+import org.koin.android.ext.android.inject
 
 
 class Profile : Fragment() {
 
-    private lateinit var sharedPrefManager: SharedPrefManager
+    private val sharedPrefManager: SharedPrefManager by inject()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,7 +36,6 @@ class Profile : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        sharedPrefManager = SharedPrefManager(requireActivity())
         buildUi()
     }
 
@@ -54,6 +54,8 @@ class Profile : Fragment() {
             profile_email_id.text = email
             profile_real_name.text = name
         }
+
+        proofile_anon_name.text = sharedPrefManager.anonName
 
         profile_logout_button.setOnClickListener {
             sharedPrefManager.nukeSharedPrefs()

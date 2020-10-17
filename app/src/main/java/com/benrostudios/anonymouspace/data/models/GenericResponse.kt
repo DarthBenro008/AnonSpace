@@ -3,7 +3,7 @@ package com.benrostudios.anonymouspace.data.models
 import android.icu.number.NumberFormatter
 
 data class GenericResponse(
-    val message: String? = null,
+    val message: Boolean = false,
     val chatroomid: String? = null,
     val uuid: String? = null,
     val chatCount: String? = null,

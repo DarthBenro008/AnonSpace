@@ -1,5 +1,5 @@
 package com.benrostudios.anonymouspace.utils
 
 object Constants {
-    const val BASE_URL ="https://syncure-app-api.herokuapp.com/api/"
+    const val BASE_URL ="https://anonymouspace.herokuapp.com/"
 }
