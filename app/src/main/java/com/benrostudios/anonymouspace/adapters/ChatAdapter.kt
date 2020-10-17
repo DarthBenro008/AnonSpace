@@ -81,6 +81,7 @@ class ChatAdapter(
             with(itemView) {
                 incoming_message.text = item.content
                 incoming_timestamp.text = dateParser(item.timestamp)
+                incoming_display_name.text = item.displayname
             }
         }
 

@@ -2,15 +2,16 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/leave_room_text"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.ChatActivity">
 
     <ImageView
-        android:scaleType="centerCrop"
         android:id="@+id/imageView7"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:scaleType="centerCrop"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -31,7 +32,10 @@
         android:id="@+id/textView24"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
+        android:fontFamily="@font/poppins_semibold"
+        android:text=" Leave Room"
+        android:textColor="@color/colorAccent"
+        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="@+id/imageView7"
         app:layout_constraintEnd_toEndOf="@+id/textView18"
         app:layout_constraintStart_toStartOf="@+id/textView18"
@@ -54,26 +58,24 @@
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="16dp"
             app:boxCornerRadiusBottomEnd="16dp"
-            app:boxCornerRadiusTopStart="16dp"
-            app:boxCornerRadiusTopEnd="16dp"
             app:boxCornerRadiusBottomStart="16dp"
+            app:boxCornerRadiusTopEnd="16dp"
+            app:boxCornerRadiusTopStart="16dp"
             app:endIconDrawable="@drawable/ic_send"
             app:endIconMode="custom"
-            android:clickable="true"
             app:endIconTint="@color/colorPrimary"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintVertical_bias="1.0"
-            android:focusable="true">
+            app:layout_constraintVertical_bias="1.0">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:hint="Type something here"
-                android:textColorHint="@color/textColor"
                 android:id="@+id/usr_message_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:maxHeight="60dp" />
+                android:hint="Type something here"
+                android:maxHeight="60dp"
+                android:textColorHint="@color/textColor" />
         </com.google.android.material.textfield.TextInputLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
