@@ -2,6 +2,7 @@ package com.benrostudios.anonymouspace.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.core.graphics.toColorInt
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
@@ -15,6 +16,7 @@ class Home : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
         navController = findNavController(R.id.nav_host_fragment_home_activity)
+        bottom_navigation_view_home_activity.setBackgroundColor("#121212".toColorInt())
         bottom_navigation_view_home_activity.setupWithNavController(navController)
     }
 }

@@ -2,14 +2,14 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/first"
-        android:icon="@drawable/ic_baseline_brightness_1_24"
+        android:icon="@drawable/ic_people"
         android:title="FirstPage" />
     <item
         android:id="@+id/second"
-        android:icon="@drawable/ic_baseline_brightness_1_24"
+        android:icon="@drawable/ic_vector"
         android:title="SecondPage" />
     <item
         android:id="@+id/profile"
-        android:icon="@drawable/ic_baseline_brightness_1_24"
+        android:icon="@drawable/ic_person"
         android:title="Profile" />
 </menu>
