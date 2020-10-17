@@ -25,6 +25,19 @@ class SharedPrefManager(val context: Context) {
             getPrefs()?.edit()?.putString(PREFS_USERNAME, value)?.apply()
         }
 
+    var screenTime: String
+        get() = getPrefs()?.getString(PREFS_SCREENTIME, "") ?: ""
+        set(value) {
+            getPrefs()?.edit()?.putString(PREFS_SCREENTIME, value)?.apply()
+        }
+
+    var interactions: String
+        get() = getPrefs()?.getString(PREFS_INTERACTIONS, "") ?: ""
+        set(value) {
+            getPrefs()?.edit()?.putString(PREFS_INTERACTIONS, value)?.apply()
+        }
+
+
     fun nukeSharedPrefs() {
         getPrefs()?.edit()?.clear()?.apply()
     }
@@ -32,7 +45,9 @@ class SharedPrefManager(val context: Context) {
     companion object {
         const val PREFS_FILENAME = "com.benrostudios.anonymouspace"
         const val PREFS_USERNAME = "username"
-        const val PREFS_CHATROOM = "username"
+        const val PREFS_CHATROOM = "chatroom"
+        const val PREFS_SCREENTIME = "screentime"
+        const val PREFS_INTERACTIONS = "interactions"
         const val PREFS_JWT = "jwt"
     }
 }

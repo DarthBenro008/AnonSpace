@@ -44,52 +44,57 @@ class First : ScopedFragment() {
         super.onActivityCreated(savedInstanceState)
 
         join_button.setOnGenericMotionListener { view, motionEvent ->
-            requireActivity().startActivity(Intent(requireActivity(),ChatActivity::class.java))
+            requireActivity().startActivity(Intent(requireActivity(), ChatActivity::class.java))
             true
         }
-        base_motion.setTransitionListener(object: MotionLayout.TransitionListener{
+        base_motion.setTransitionListener(object : MotionLayout.TransitionListener {
             override fun onTransitionStarted(p0: MotionLayout?, p1: Int, p2: Int) {
-                Log.d("hello","motion started")
+                Log.d("hello", "motion started")
             }
 
             override fun onTransitionChange(p0: MotionLayout?, p1: Int, p2: Int, p3: Float) {
-                Log.d("hello","motion started")
+                Log.d("hello", "motion started")
             }
 
             override fun onTransitionCompleted(p0: MotionLayout?, p1: Int) {
-                if(p1 == R.id.create_anim){
-                    requireActivity().startActivity(Intent(requireActivity(),ChatActivity::class.java))
-                    //requireActivity().finish()
+                if (p1 == R.id.create_anim) {
+                    createRoom()
                 }
 
             }
 
             override fun onTransitionTrigger(p0: MotionLayout?, p1: Int, p2: Boolean, p3: Float) {
-                Log.d("hello","motion started")
+                Log.d("hello", "motion started")
             }
 
         })
 
     }
 
-    private fun createRoom()= launch{
-        viewModel.createRoom("",sharedPrefManager.uuid).observe(viewLifecycleOwner, Observer {
-            if(it != null){
+    private fun createRoom() = launch {
+        viewModel.createRoom("", sharedPrefManager.uuid).observe(viewLifecycleOwner, Observer {
+            if (it != null) {
                 sharedPrefManager.currentChatRoomId = it.chatroomid.toString()
-                requireActivity().startActivity(Intent(requireActivity(),ChatActivity::class.java))
+                requireActivity().startActivity(Intent(requireActivity(), ChatActivity::class.java))
             }
         })
     }
 
-    private fun joinRoom(chatRoomId: String) = launch{
-        viewModel.joinRoom(chatRoomId,sharedPrefManager.uuid).observe(viewLifecycleOwner, Observer {
-            if(it != null && it.message){
-                sharedPrefManager.currentChatRoomId = chatRoomId
-                requireActivity().startActivity(Intent(requireActivity(),ChatActivity::class.java))
-            }else{
-                //TOOD: error joining classroom
-            }
-        })
+    private fun joinRoom(chatRoomId: String) = launch {
+        viewModel.joinRoom(chatRoomId, sharedPrefManager.uuid)
+            .observe(viewLifecycleOwner, Observer {
+                if (it != null && it.message) {
+                    sharedPrefManager.currentChatRoomId = chatRoomId
+                    requireActivity().startActivity(
+                        Intent(
+                            requireActivity(),
+                            ChatActivity::class.java
+                        )
+                    )
+                } else {
+                    //TOOD: error joining classroom
+                }
+            })
     }
 
 

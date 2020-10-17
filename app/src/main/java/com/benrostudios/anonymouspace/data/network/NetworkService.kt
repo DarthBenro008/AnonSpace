@@ -14,18 +14,24 @@ import retrofit2.http.POST
 
 interface NetworkService {
 
+
+    @FormUrlEncoded
     @POST("room/createRoom")
     suspend fun createRoom(
         @Field("location") location: String,
         @Field("hostId") userId: String
     ): Response<GenericResponse>
 
+
+    @FormUrlEncoded
     @POST("room/joinRoom")
     suspend fun joinRoom(
         @Field("chatroomId") chatroomId: String,
         @Field("userId") userId: String
     ): Response<GenericResponse>
 
+
+    @FormUrlEncoded
     @POST("room/leaveUser")
     suspend fun leaveRoom(
         @Field("chatroomId") chatroomId: String,
@@ -40,12 +46,16 @@ interface NetworkService {
         @Field("randomimage") randomImage: String
     ): Response<GenericResponse>
 
+
+    @FormUrlEncoded
     @POST("user/updatescreentime")
     suspend fun updateScreenTime(
         @Field("uuid") uuid: String,
         @Field("screenTime") screenTime: Int
     ): Response<GenericResponse>
 
+
+    @FormUrlEncoded
     @POST("msg/sendmessage")
     suspend fun sendMessage(
         @Field("msg") msg: String,
