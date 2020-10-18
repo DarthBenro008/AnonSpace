@@ -87,7 +87,6 @@ class ChatActivity : AppCompatActivity() {
                 .observeForever {
                     if (it != null) {
                         sharedPrefManager.currentChatRoomId = "none"
-                        Log.d("lol", "triggered")
                         finish()
                     }
                 }

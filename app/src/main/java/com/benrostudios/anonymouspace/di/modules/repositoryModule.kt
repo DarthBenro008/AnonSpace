@@ -10,5 +10,4 @@ import org.koin.dsl.module
 val repositoryModule = module {
     single { SharedPrefManager(get()) }
     single<NetworkRepo> { NetworkRepoImpl(get()) }
-    //single { NearbyApi(get(), get()) }
 }

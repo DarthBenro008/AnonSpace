@@ -1,12 +1,10 @@
 package com.benrostudios.anonymouspace.ui.pages
 
-import android.annotation.SuppressLint
+
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
-import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import androidx.constraintlayout.motion.widget.MotionLayout
@@ -29,9 +27,6 @@ class First : ScopedFragment() {
     private val viewModel: HomeViewModel by inject()
     private lateinit var nearbyApi: NearbyApi
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
