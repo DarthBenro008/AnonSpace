@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.benrostudios.anonymouspace.R
 import com.benrostudios.anonymouspace.data.models.MessageItem
+import com.benrostudios.anonymouspace.utils.decryptor
 import kotlinx.android.synthetic.main.incoming_chat_item.view.*
 import kotlinx.android.synthetic.main.outgoing_chat_item.view.*
 import java.text.SimpleDateFormat
@@ -22,6 +23,7 @@ class ChatAdapter(
         private const val TYPE_RECEIVED = 0
         private const val TYPE_SENT = 1
     }
+
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<*> {
@@ -64,7 +66,7 @@ class ChatAdapter(
     class SentViewHolder(v: View) : BaseViewHolder<MessageItem>(v) {
         override fun bind(item: MessageItem) {
             with(itemView) {
-                outgoing_message.text = item.content
+                outgoing_message.text = decryptor(item.content.split(" "))
                 outgoing_time.text = dateParser(item.timestamp)
             }
         }
@@ -79,7 +81,7 @@ class ChatAdapter(
     class ReceivedViewHolder(v: View) : BaseViewHolder<MessageItem>(v) {
         override fun bind(item: MessageItem) {
             with(itemView) {
-                incoming_message.text = item.content
+                incoming_message.text = decryptor(item.content.split(" "))
                 incoming_timestamp.text = dateParser(item.timestamp)
                 incoming_display_name.text = item.displayname
             }
