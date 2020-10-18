@@ -88,7 +88,7 @@ class First : ScopedFragment() {
             if (it != null) {
                 sharedPrefManager.currentChatRoomId = it.chatroomID.toString()
                 requireActivity().startActivity(Intent(requireActivity(), ChatActivity::class.java))
-
+                killActivity()
             }
         })
     }
@@ -110,10 +110,15 @@ class First : ScopedFragment() {
                             ChatActivity::class.java
                         )
                     )
+                    killActivity()
                 } else {
                     //TOOD: error joining classroom
                 }
             })
+    }
+
+    private fun killActivity(){
+        requireActivity().finish()
     }
 
 

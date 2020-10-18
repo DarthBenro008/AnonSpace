@@ -6,5 +6,6 @@ data class MessageItem(
         val content: String = "",
         val timestamp: Long = 0,
         val userid: String = "",
-        val displayname: String = ""
+        val displayname: String = "",
+        val image: String = ""
 )

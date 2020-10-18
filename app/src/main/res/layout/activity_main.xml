@@ -68,7 +68,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
         android:fontFamily="@font/poppins_bold"
-        android:text="Chat"
+        android:text="Space"
         android:textColor="@color/colorPrimary"
         android:textSize="40sp"
         app:layout_constraintStart_toStartOf="@+id/guideline4"

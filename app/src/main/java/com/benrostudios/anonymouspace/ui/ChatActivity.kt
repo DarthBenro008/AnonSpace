@@ -1,5 +1,6 @@
 package com.benrostudios.anonymouspace.ui
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -26,7 +27,9 @@ class ChatActivity : AppCompatActivity() {
         nearbyApi = NearbyApi(this,application){
 
         }
-        chat_recycler.layoutManager = LinearLayoutManager(this)
+        val linearLayout = LinearLayoutManager(this)
+        linearLayout.reverseLayout = true
+        chat_recycler.layoutManager = linearLayout
         listenMessages()
         viewModel.switchChat(false)
         message_edit_text_layout.setEndIconOnClickListener {
@@ -74,7 +77,7 @@ class ChatActivity : AppCompatActivity() {
         lifecycleScope.launch {
             viewModel.realtimeMessages.observeForever {
                 if (it != null) {
-                    adapter = ChatAdapter(it, sharedPrefManager.uuid)
+                    adapter = ChatAdapter(it.asReversed(), sharedPrefManager.uuid)
                     chat_recycler.adapter = adapter
                 }
             }
@@ -87,7 +90,10 @@ class ChatActivity : AppCompatActivity() {
                 .observeForever {
                     if (it != null) {
                         sharedPrefManager.currentChatRoomId = "none"
-                        finish()
+                        runOnUiThread {
+                            startActivity(Intent(this@ChatActivity, Home::class.java))
+                            this@ChatActivity.finish()
+                        }
                     }
                 }
         }

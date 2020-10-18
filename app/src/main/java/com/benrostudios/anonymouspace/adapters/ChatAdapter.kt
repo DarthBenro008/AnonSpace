@@ -90,7 +90,8 @@ class ChatAdapter(
                 incoming_timestamp.text = dateParser(item.timestamp)
                 incoming_display_name.text = item.displayname
                 Glide.with(context)
-                    .load("")
+                    .load(item.image)
+                    .circleCrop()
                     .into(incoming_profile_pic)
             }
         }
