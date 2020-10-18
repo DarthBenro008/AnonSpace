@@ -2,6 +2,7 @@ package com.benrostudios.anonymouspace.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.benrostudios.anonymouspace.R
@@ -22,6 +23,7 @@ class ChatActivity : AppCompatActivity() {
         setContentView(R.layout.activity_chat)
         chat_recycler.layoutManager = LinearLayoutManager(this)
         listenMessages()
+        viewModel.switchChat(false)
         message_edit_text_layout.setEndIconOnClickListener {
             if (usr_message_text.text.toString().isNotEmpty()) {
                 sendMessage(usr_message_text.text.toString())
@@ -72,16 +74,11 @@ class ChatActivity : AppCompatActivity() {
             viewModel.leaveUser(sharedPrefManager.currentChatRoomId, sharedPrefManager.uuid)
                 .observeForever {
                     if (it != null) {
-                        if (it.message) {
-                            sharedPrefManager.currentChatRoomId = "none"
-                            quiteActivity()
-                        }
+                        sharedPrefManager.currentChatRoomId = "none"
+                            Log.d("lol","triggered")
+                            finish()
                     }
                 }
         }
-    }
-
-    private fun quiteActivity() {
-        finish()
     }
 }

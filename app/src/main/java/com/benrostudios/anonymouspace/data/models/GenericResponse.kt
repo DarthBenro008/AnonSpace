@@ -5,6 +5,7 @@ import android.icu.number.NumberFormatter
 data class GenericResponse(
     val message: Boolean = false,
     val chatroomid: String? = null,
+    val chatroomID: String? = null,
     val uuid: String? = null,
     val chatCount: String? = null,
     val displayName: String? = null,

@@ -39,14 +39,10 @@ class First : ScopedFragment() {
         return inflater.inflate(R.layout.fragment_first, container, false)
     }
 
-    @SuppressLint("ClickableViewAccessibility")
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-
-        join_button.setOnGenericMotionListener { view, motionEvent ->
-            requireActivity().startActivity(Intent(requireActivity(), ChatActivity::class.java))
-            true
-        }
+        chatSwitchListener()
+        Log.d("lol", "gg")
         base_motion.setTransitionListener(object : MotionLayout.TransitionListener {
             override fun onTransitionStarted(p0: MotionLayout?, p1: Int, p2: Int) {
                 Log.d("hello", "motion started")
@@ -54,11 +50,13 @@ class First : ScopedFragment() {
 
             override fun onTransitionChange(p0: MotionLayout?, p1: Int, p2: Int, p3: Float) {
                 Log.d("hello", "motion started")
+
             }
 
             override fun onTransitionCompleted(p0: MotionLayout?, p1: Int) {
+                Log.d("hello", "motion started")
                 if (p1 == R.id.create_anim) {
-                    createRoom()
+                    switchClassroom()
                 }
 
             }
@@ -71,11 +69,24 @@ class First : ScopedFragment() {
 
     }
 
+    private fun switchClassroom() {
+        viewModel.switchChat(true)
+    }
+
+    private fun chatSwitchListener() {
+        viewModel.chatBool.observe(viewLifecycleOwner, Observer {
+            if (it) {
+                createRoom()
+            }
+        })
+    }
+
     private fun createRoom() = launch {
         viewModel.createRoom("", sharedPrefManager.uuid).observe(viewLifecycleOwner, Observer {
             if (it != null) {
-                sharedPrefManager.currentChatRoomId = it.chatroomid.toString()
+                sharedPrefManager.currentChatRoomId = it.chatroomID.toString()
                 requireActivity().startActivity(Intent(requireActivity(), ChatActivity::class.java))
+
             }
         })
     }
