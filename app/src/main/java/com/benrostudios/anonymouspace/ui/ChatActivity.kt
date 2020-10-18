@@ -7,6 +7,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.benrostudios.anonymouspace.R
 import com.benrostudios.anonymouspace.adapters.ChatAdapter
+import com.benrostudios.anonymouspace.utils.NearbyApi
 import com.benrostudios.anonymouspace.utils.SharedPrefManager
 import kotlinx.android.synthetic.main.activity_chat.*
 import kotlinx.coroutines.launch
@@ -17,10 +18,14 @@ class ChatActivity : AppCompatActivity() {
     private val sharedPrefManager: SharedPrefManager by inject()
     private val viewModel: HomeViewModel by inject()
     private lateinit var adapter: ChatAdapter
+    private lateinit var nearbyApi: NearbyApi
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_chat)
+        nearbyApi = NearbyApi(this,application){
+
+        }
         chat_recycler.layoutManager = LinearLayoutManager(this)
         listenMessages()
         viewModel.switchChat(false)
@@ -33,8 +38,15 @@ class ChatActivity : AppCompatActivity() {
         leave_room_text.setOnClickListener {
             leaveRoom()
         }
+        nearbyApi.sender = true
+        nearbyApi.chatroomId = sharedPrefManager.currentChatRoomId
+        nearbyApi.advertise()
     }
 
+    override fun onDestroy() {
+        nearbyApi.stopNearby()
+        super.onDestroy()
+    }
 
     private fun sendMessage(msg: String) {
         lifecycleScope.launch {
@@ -75,8 +87,8 @@ class ChatActivity : AppCompatActivity() {
                 .observeForever {
                     if (it != null) {
                         sharedPrefManager.currentChatRoomId = "none"
-                            Log.d("lol","triggered")
-                            finish()
+                        Log.d("lol", "triggered")
+                        finish()
                     }
                 }
         }

@@ -95,7 +95,10 @@ dependencies {
     implementation 'com.airbnb.android:lottie:3.4.4'
 
     //Database
-    implementation 'com.google.firebase:firebase-database-ktx:19.4.0'
+    implementation 'com.google.firebase:firebase-database-ktx:19.5.0'
+
+    //NearbyAPI
+    implementation 'com.google.android.gms:play-services-nearby:17.0.0'
 
 
 }
