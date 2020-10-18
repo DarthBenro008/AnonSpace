@@ -37,6 +37,12 @@ class SharedPrefManager(val context: Context) {
             getPrefs()?.edit()?.putString(PREFS_INTERACTIONS, value)?.apply()
         }
 
+    var anonImage: String
+        get() = getPrefs()?.getString(PREFS_IMAGE, "") ?: ""
+        set(value) {
+            getPrefs()?.edit()?.putString(PREFS_IMAGE, value)?.apply()
+        }
+
 
     fun nukeSharedPrefs() {
         getPrefs()?.edit()?.clear()?.apply()
@@ -48,6 +54,7 @@ class SharedPrefManager(val context: Context) {
         const val PREFS_CHATROOM = "chatroom"
         const val PREFS_SCREENTIME = "screentime"
         const val PREFS_INTERACTIONS = "interactions"
+        const val PREFS_IMAGE = "image"
         const val PREFS_JWT = "jwt"
     }
 }

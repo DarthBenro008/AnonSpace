@@ -21,17 +21,26 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".ui.ChatActivity"
-            android:launchMode="singleInstance"></activity>
-        <activity android:name=".ui.Splash">
+            android:launchMode="singleInstance"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.Splash"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.OnBoarding" />
-        <activity android:name=".ui.Home" />
-        <activity android:name=".ui.Auth" />
+        <activity
+            android:name=".ui.OnBoarding"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.Home"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.Auth"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

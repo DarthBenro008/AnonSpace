@@ -1,13 +1,19 @@
 package com.benrostudios.anonymouspace.ui
 
+import android.Manifest
 import android.content.Intent
+import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import com.benrostudios.anonymouspace.R
 import com.benrostudios.anonymouspace.utils.SharedPrefManager
+import com.benrostudios.anonymouspace.utils.hide
+import com.benrostudios.anonymouspace.utils.show
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -20,6 +26,9 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 
+private const val REQUEST_CODE_PERMISSIONS = 10
+private val REQUIRED_PERMISSIONS = arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION)
+
 class Auth : AppCompatActivity() {
     private lateinit var googleSignInClient: GoogleSignInClient
     private lateinit var auth: FirebaseAuth
@@ -30,8 +39,14 @@ class Auth : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        if (!allPermissionsGranted()) {
+            ActivityCompat.requestPermissions(
+                this, REQUIRED_PERMISSIONS, REQUEST_CODE_PERMISSIONS
+            )
+        }
         auth = Firebase.auth
         google_sign_in.setOnClickListener {
+            auth_progress.show()
             initGoogleSignInClient()
             signIn()
         }
@@ -61,7 +76,7 @@ class Auth : AppCompatActivity() {
                 firebaseAuthWithGoogle(account.idToken!!)
             } catch (e: ApiException) {
                 Log.w(TAG, "Google sign in failed", e)
-                //progressBar2.hide()
+                auth_progress.hide()
             }
         }
     }
@@ -76,7 +91,7 @@ class Auth : AppCompatActivity() {
                 } else {
                     // If sign in fails, display a message to the user.
                     Log.w(TAG, "signInWithCredential:failure", task.exception)
-                    //progressBar2.hide()
+                    auth_progress.hide()
                     Toast.makeText(this, "Failed", Toast.LENGTH_SHORT).show()
                 }
             }
@@ -105,6 +120,30 @@ class Auth : AppCompatActivity() {
     companion object {
         const val TAG = "welcomeFragment"
         private const val RC_SIGN_IN = 9001
+    }
+
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int, permissions: Array<String>, grantResults: IntArray
+    ) {
+        if (requestCode == REQUEST_CODE_PERMISSIONS) {
+            if (allPermissionsGranted()) {
+
+            } else {
+                Toast.makeText(
+                    this,
+                    "Permissions not granted by the user.",
+                    Toast.LENGTH_SHORT
+                ).show()
+                finish()
+            }
+        }
+    }
+
+    private fun allPermissionsGranted() = REQUIRED_PERMISSIONS.all {
+        ContextCompat.checkSelfPermission(
+            baseContext, it
+        ) == PackageManager.PERMISSION_GRANTED
     }
 
 }

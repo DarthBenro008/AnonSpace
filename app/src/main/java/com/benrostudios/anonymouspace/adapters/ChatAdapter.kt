@@ -1,5 +1,6 @@
 package com.benrostudios.anonymouspace.adapters
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -7,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.benrostudios.anonymouspace.R
 import com.benrostudios.anonymouspace.data.models.MessageItem
 import com.benrostudios.anonymouspace.utils.decryptor
+import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.incoming_chat_item.view.*
 import kotlinx.android.synthetic.main.outgoing_chat_item.view.*
 import java.text.SimpleDateFormat
@@ -25,8 +27,11 @@ class ChatAdapter(
     }
 
 
+    private lateinit var context: Context
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<*> {
+        context = parent.context
         return when (viewType) {
             TYPE_RECEIVED -> {
                 val view = LayoutInflater.from(parent.context)
@@ -73,7 +78,7 @@ class ChatAdapter(
 
         fun dateParser(inputUnix: Long): String {
             val sdf = SimpleDateFormat("hh:mm")
-            val date = Date(inputUnix * 1000L)
+            val date = Date(inputUnix)
             return sdf.format(date)
         }
     }
@@ -84,12 +89,15 @@ class ChatAdapter(
                 incoming_message.text = decryptor(item.content.split(" "))
                 incoming_timestamp.text = dateParser(item.timestamp)
                 incoming_display_name.text = item.displayname
+                Glide.with(context)
+                    .load("")
+                    .into(incoming_profile_pic)
             }
         }
 
         fun dateParser(inputUnix: Long): String {
             val sdf = SimpleDateFormat("hh:mm")
-            val date = Date(inputUnix * 1000L)
+            val date = Date(inputUnix)
             return sdf.format(date)
         }
 

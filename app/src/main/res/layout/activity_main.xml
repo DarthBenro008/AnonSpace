@@ -104,13 +104,26 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
-        android:layout_marginBottom="32dp"
         android:text="We dont store your data in our cloud, and assure you of your privacy and security with this app."
         android:textAlignment="center"
         android:textColor="#797979"
         android:textSize="10sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.93" />
+
+    <ProgressBar
+        android:visibility="invisible"
+        android:id="@+id/auth_progress"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/textView23"
+        app:layout_constraintEnd_toEndOf="@+id/google_sign_in"
+        app:layout_constraintStart_toStartOf="@+id/google_sign_in"
+        app:layout_constraintTop_toBottomOf="@+id/google_sign_in" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -6,4 +6,6 @@
     <color name="colorAccent">#03DAC6</color>
     <color name="paleWhite">#F9F9F9</color>
     <color name="textColor">#E5E5E5</color>
+    <color name="error_red">#d32f2f</color>
+    <color name="success_green">#4caf50</color>
 </resources>
