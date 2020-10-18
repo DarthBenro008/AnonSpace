@@ -44,6 +44,7 @@ class Auth : AppCompatActivity() {
                 this, REQUIRED_PERMISSIONS, REQUEST_CODE_PERMISSIONS
             )
         }
+        sharedPrefManager.firstTimeOpen = false
         auth = Firebase.auth
         google_sign_in.setOnClickListener {
             auth_progress.show()

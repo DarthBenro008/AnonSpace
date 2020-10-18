@@ -33,7 +33,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.OnBoarding"
+            android:name=".ui.onboarding.OnBoarding"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.Home"

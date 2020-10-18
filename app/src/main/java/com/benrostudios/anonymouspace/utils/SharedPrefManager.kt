@@ -37,6 +37,12 @@ class SharedPrefManager(val context: Context) {
             getPrefs()?.edit()?.putString(PREFS_INTERACTIONS, value)?.apply()
         }
 
+    var firstTimeOpen: Boolean
+        get() = getPrefs().getBoolean(PREFS_FIRST_TIME_OPEN, true) ?: true
+        set(value) {
+            getPrefs()?.edit()?.putBoolean(PREFS_FIRST_TIME_OPEN, value)?.apply()
+        }
+
     var anonImage: String
         get() = getPrefs()?.getString(PREFS_IMAGE, "") ?: ""
         set(value) {
@@ -56,5 +62,6 @@ class SharedPrefManager(val context: Context) {
         const val PREFS_INTERACTIONS = "interactions"
         const val PREFS_IMAGE = "image"
         const val PREFS_JWT = "jwt"
+        const val PREFS_FIRST_TIME_OPEN = "firstTime"
     }
 }
