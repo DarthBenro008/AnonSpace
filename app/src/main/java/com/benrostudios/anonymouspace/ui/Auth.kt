@@ -27,7 +27,7 @@ import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 
 private const val REQUEST_CODE_PERMISSIONS = 10
-private val REQUIRED_PERMISSIONS = arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION)
+private val REQUIRED_PERMISSIONS = arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION)
 
 class Auth : AppCompatActivity() {
     private lateinit var googleSignInClient: GoogleSignInClient

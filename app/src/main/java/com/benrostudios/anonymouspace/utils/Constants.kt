@@ -3,7 +3,7 @@ package com.benrostudios.anonymouspace.utils
 import android.util.Log
 
 object Constants {
-    const val BASE_URL = "https://anonymouspace.herokuapp.com/"
+    const val BASE_URL = "http://34.72.167.147:80/"
 }
 
 fun decryptor(chat: List<String>): String {
